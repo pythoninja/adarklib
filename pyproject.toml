@@ -14,3 +14,5 @@ beautifulsoup4 = "^4.6"
 lxml = "^4.2"
 
 [tool.poetry.dev-dependencies]
+pre-commit = "^1.11"
+pylint = "^2.1"

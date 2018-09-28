@@ -31,4 +31,3 @@ clean:
 
 clean-all: clean
 	rm -rf ./.venv
-
