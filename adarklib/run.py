@@ -1,52 +1,60 @@
 #!/usr/bin/env python3
 """ Docstring """
-# import aiohttp
 import asyncio
-import os
 
-print(os.getcwd())
+import aiohttp
+from bs4 import BeautifulSoup
+
+from adarklib.parsers import extract_album_id
+from adarklib.utils import create_session
 
 
-async def generate_header():
+async def fetch_html(session: aiohttp.ClientSession, url: str):
     """ Docstring """
-    # origin = ""
-    # accept_encoding = ""
-    # user_agent = ""
-    # content_type = ""
-    # accept = ""
-    # referer = ""
-    # x_requested_with = ""
-    # connection = ""
 
-    return {
-        "Origin": "http://dark-world.ru",
-        "Accept-Encoding": "gzip, deflate",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)"
-                      "Chrome/66.0.3359.181 YaBrowser/18.6.0.2255 Yowser/2.5 Safari/537.36",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Accept": "text/html",
-        "Referer": "http://dark-world.ru",
-        "X-Requested-With": "XMLHttpRequest",
-        "Connection": "keep-alive",
-    }
+    async with session.get(url=url) as resp:
+        response = await resp.text()
+
+        print(f'Extracting download links from {resp.url}')
+
+        album_id = extract_album_id(response)
+
+    await extract_download_links(session, album_id)
 
 
-async def p1_f():
+async def extract_download_links(session: aiohttp.ClientSession, album_id: int):
     """ Docstring """
-    await asyncio.sleep(2)
-    h_var = await generate_header()
-    print(h_var)
 
+    show_albums_link = 'http://dark-world.ru/links/show/albums/'
 
-async def p2_f():
-    """ Docstring """
-    print("p2")
+    async with session.post(f"{show_albums_link}/{album_id}", data={'ajax': 1}) as resp:
+
+        result = await resp.text()
+
+        parse_result = BeautifulSoup(result, "lxml")
+
+        download_link_element = parse_result.findAll("a", attrs={"class": "dlink"})
+
+        if len(download_link_element) > 1:
+            for link in download_link_element:
+                print(f'http://dark-world.ru{link["href"]}')
+        else:
+            print(f'http://dark-world.ru{download_link_element[0]["href"]}')
 
 
 async def main():
     """ Docstring """
-    print("i am in async coro")
-    await asyncio.gather(p2_f(), p1_f())
+    client_session = await create_session()
+
+    urls = (
+        'http://dark-world.ru/albums/Deicide-Overtures-Of-Blasphemy.php',
+        'http://dark-world.ru/albums/Hren-Pole-Chudes-V-Strane-Durakov.php'
+    )
+
+    async with client_session as session:
+        tasks = [asyncio.create_task(fetch_html(session, url)) for url in urls]
+
+        await asyncio.gather(*tasks)
 
 
 asyncio.run(main(), debug=True)
