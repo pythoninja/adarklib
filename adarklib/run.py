@@ -19,7 +19,7 @@ async def fetch_html(session: aiohttp.ClientSession, url: str):
 
     links = await get_download_links(session, album_id)
 
-    await print_result(status=f'Download link for {resp.url}', links=links)
+    await print_result(response=resp, links=links)
 
 
 async def get_download_links(session: aiohttp.ClientSession, album_id: int):
@@ -36,19 +36,17 @@ async def get_download_links(session: aiohttp.ClientSession, album_id: int):
         return links
 
 
-async def print_result(status, links):
+async def print_result(response: aiohttp.ClientResponse, links):
     """ Docstring """
 
-    print(f'{status}: {links}')
-    # print(links)
+    print('----')
+    print(response.url)
 
-    # if len(download_link_element) > 1:
-    #     for link in download_link_element:
-    #         return f'http://dark-world.ru{link["href"]}'
-    #         print(f'http://dark-world.ru{link["href"]}')
-    # else:
-    #     return f'http://dark-world.ru{download_link_element[0]["href"]}'
-    # return download_link_element[0]["href"]
+    if len(links) > 1:
+        for link in links:
+            print(f'http://dark-world.ru{link["href"]}')
+    else:
+        print(f'http://dark-world.ru{links[0]["href"]}')
 
 
 async def main():
