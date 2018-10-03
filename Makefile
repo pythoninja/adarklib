@@ -3,10 +3,19 @@
 START="\n\n\033[0;32m\#\#\# "
 END=" \#\#\# \033[0m\n"
 PYTHON_VERSION=3.7.0
-PYTHON_BIN="${HOME}/.pyenv/versions/$(PYTHON_VERSION)/bin/python"
-PYTHON_VENV="$(shell pwd)/.venv/bin/python"
-POETRY_BIN="${HOME}/.pyenv/versions/$(PYTHON_VERSION)/bin/poetry"
-DISTPATH="$(shell pwd)/dist"
+
+OS_TYPE = $(shell uname -s)
+
+ifeq ($(OS_TYPE), Darwin)
+	PYTHON_BIN="/usr/local/bin/python3.7"
+	PYTHON_VENV="$(shell pwd)/.venv/bin/python"
+	POETRY_BIN="/usr/local/bin/poetry"
+else
+	PYTHON_BIN="${HOME}/.pyenv/versions/$(PYTHON_VERSION)/bin/python"
+	PYTHON_VENV="$(shell pwd)/.venv/bin/python"
+	POETRY_BIN="${HOME}/.pyenv/versions/$(PYTHON_VERSION)/bin/poetry"
+	DISTPATH="$(shell pwd)/dist"
+endif
 
 .PHONY: test-ci
 
