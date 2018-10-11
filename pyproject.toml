@@ -12,6 +12,10 @@ cchardet = "^2.1"
 aiodns = "^1.1"
 beautifulsoup4 = "^4.6"
 lxml = "^4.2"
+python-dateutil = "^2.7"
+simplejson = "^3.16"
+marshmallow = {version = "^2.15",allows-prereleases = true}
+requests = "^2.19"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^1.11"
