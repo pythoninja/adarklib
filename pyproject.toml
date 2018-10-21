@@ -15,7 +15,7 @@ lxml = "^4.2"
 python-dateutil = "^2.7"
 simplejson = "^3.16"
 marshmallow = {version = "^2.16",allows-prereleases = true}
-requests = "^2.19"
+requests = "^2.20"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^1.11"
