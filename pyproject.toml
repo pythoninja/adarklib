@@ -18,5 +18,5 @@ marshmallow = {version = "^2.16",allows-prereleases = true}
 requests = "^2.20"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^1.11"
+pre-commit = "^1.12"
 pylint = "^2.1"
