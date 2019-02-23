@@ -37,3 +37,4 @@ marshmallow = {version = "^2.16",allows-prereleases = true}
 [tool.poetry.dev-dependencies]
 pylint = "^2.1"
 pre-commit = "^1.14"
+pyyaml = {version = "^4.2b1", allows-prereleases = true}
