@@ -5,8 +5,26 @@ description = "Python library to fetch download links from dark-world.ru asynchr
 authors = ["pythoninja <pythoninja@users.noreply.github.com>"]
 license = "MIT"
 
+readme = "README.md"
+
+homepage = "https://github.com/pythoninja/adarklib"
+repository = "https://github.com/pythoninja/adarklib"
+documentation = "https://adarklib.readthedocs.io"
+
+keywords = ["asynchronous", "downloader", "fetcher", "library"]
+
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Intended Audience :: Developers"
+]
+
 [tool.poetry.dependencies]
-python = "3.7"
+python = ">=3.6"
 aiohttp = "^3.4"
 cchardet = "^2.1"
 aiodns = "^1.1"
@@ -15,8 +33,7 @@ lxml = "^4.2"
 python-dateutil = "^2.7"
 simplejson = "^3.16"
 marshmallow = {version = "^2.16",allows-prereleases = true}
-requests = "^2.20"
 
 [tool.poetry.dev-dependencies]
-pre-commit = "^1.12"
 pylint = "^2.1"
+pre-commit = "^1.14"

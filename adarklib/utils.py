@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
-""" Docstring """
+""" Collection of useful functions """
+import asyncio
+
 import aiohttp
+
+from adarklib.client import fetch_album
 
 
 def generate_header() -> dict:
@@ -28,10 +32,20 @@ def generate_header() -> dict:
     }
 
 
-async def create_session():
-    """ Docstring """
+async def create_session() -> aiohttp.ClientSession:
+    """ Creates aiohttp.ClientSession and returns it """
 
     headers = generate_header()
 
     client_session = aiohttp.ClientSession(headers=headers)
     return client_session
+
+
+async def task_runner(urls):
+    """ Docstring """
+    client_session = await create_session()
+
+    async with client_session as session:
+        tasks = [asyncio.create_task(fetch_album(session, url)) for url in urls]
+
+        return await asyncio.gather(*tasks)
