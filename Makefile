@@ -29,6 +29,10 @@ install:
 
 update:
 	$(POETRY_BIN) update || exit 1
+	$(POETRY_BIN) export --dev --format requirements.txt || exit 1
+
+generate:
+	$(POETRY_BIN) export --dev --format requirements.txt || exit 1
 
 test:
 	@echo $(START)'Running tests'$(END)
