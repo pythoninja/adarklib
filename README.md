@@ -5,6 +5,6 @@
 Python library to fetch download links from dark-world.ru asynchronously.
 Use it as CLI tool, provide API or integrate to different tools like Telegram bot.
 
-# Motivation
+## Motivation
 
 dark-world.ru just disabled viewing of download links for some clients. This tool will help me (or you) to view that info.
