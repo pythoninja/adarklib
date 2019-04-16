@@ -32,7 +32,7 @@ beautifulsoup4 = "^4.6"
 lxml = "^4.3"
 python-dateutil = "^2.7"
 simplejson = "^3.16"
-marshmallow = {version = "^2.16",allows-prereleases = true}
+marshmallow = {version = "^3.0",allows-prereleases = true}
 
 [tool.poetry.dev-dependencies]
 pylint = "^2.3"
